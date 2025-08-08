@@ -84,6 +84,7 @@ Ensures servers are *always* passing load balancer health checks and serving a v
 ### 1. Prerequisites
 
 - [Terraform v1.12.x or later](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+- [Terragrunt v0.23+](https://terragrunt.gruntwork.io/docs/getting-started/install/)
 - AWS CLI configured (`aws configure`)
 - Valid AWS credentials with permissions to deploy VPC/EC2/network resources
 
