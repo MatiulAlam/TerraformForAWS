@@ -87,9 +87,27 @@ Ensures servers are *always* passing load balancer health checks and serving a v
 - AWS CLI configured (`aws configure`)
 - Valid AWS credentials with permissions to deploy VPC/EC2/network resources
 
-### 2. Clone & Initialize
+### 2. Set Up Remote Backend: S3 Bucket & DynamoDB Table
+Before you use Terragrunt for deployment, it's best practice to centralize your Terraform state and enable state locking for safety. This is done by creating:
+
+📦 An S3 bucket: Stores the shared Terraform state file.
+💾 A DynamoDB table: Manages state locking to prevent concurrent modifications.
+
+- aws s3api create-bucket --bucket my-terraform-states-ap-south-1 --region ap-south-1 --create-bucket-configuration LocationConstraint=ap-south-1
+- aws dynamodb create-table \
+  --table-name terraform-locks \
+  --attribute-definitions AttributeName=LockID,AttributeType=S \
+  --key-schema AttributeName=LockID,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST
+
+### 3. Clone, Initialize, and Deploy
 
 ```bash
 git clone <this-repo-url>
-cd <project-directory>
-terraform init
+cd <project-directory>/live/test
+terragrunt init
+terragrunt plan      # Review upcoming changes
+terragrunt apply     # Deploys resources (type 'yes' to confirm)
+
+# To destroy resources created by Terraform
+terragrunt destroy
