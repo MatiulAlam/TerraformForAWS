@@ -30,12 +30,12 @@ output "ec2_instance_ids" {
 
 output "ec2_public_ips" {
   description = "Public IP addresses of the EC2 instances"
-  value       = module.ec2.public_ips
+  value       = module.ec2.instance_public_ips
 }
 
 output "ec2_private_ips" {
   description = "Private IP addresses of the EC2 instances"
-  value       = module.ec2.private_ips
+  value       = module.ec2.instance_private_ips
 }
 
 output "key_pair_name" {
@@ -50,5 +50,5 @@ output "alb_security_group_id" {
 
 output "ec2_security_group_id" {
   description = "ID of the EC2 security group"
-  value       = module.ec2.ec2_security_group_id
+  value       = module.ec2.security_group_id
 }
